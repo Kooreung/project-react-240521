@@ -5,17 +5,32 @@ import {
   Input,
   Spinner,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 export function BoardView() {
   const { id } = useParams();
   const [board, setBoard] = useState(null);
+  const toast = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`/api/board/${id}`).then((res) => setBoard(res.data));
+    axios
+      .get(`/api/board/${id}`)
+      .then((res) => setBoard(res.data))
+      .catch((err) => {
+        if (err.response.status === 404) {
+          toast({
+            status: "info",
+            description: "해당 게시물이 존재하지 않습니다.",
+            position: "top",
+          });
+          navigate("/");
+        }
+      });
   }, []);
 
   // 기다리는 동안 로딩 화면
