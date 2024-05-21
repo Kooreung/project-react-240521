@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   FormControl,
   FormLabel,
   Input,
@@ -38,6 +39,10 @@ export function BoardView() {
     return <Spinner />;
   }
 
+  function handleRemoveClick() {
+    axios.delete(`/api/board/${id}`);
+  }
+
   return (
     <Box>
       <Box>{board.id} 번 게시물</Box>
@@ -64,6 +69,14 @@ export function BoardView() {
           <FormLabel>작성일시</FormLabel>
           <Input type={"datetime-local"} value={board.inserted} readonly />
         </FormControl>
+      </Box>
+      <Box mt={6}>
+        <Button colorScheme={"blue"} mr={2}>
+          수정
+        </Button>
+        <Button colorScheme={"red"} onClick={handleRemoveClick}>
+          삭제
+        </Button>
       </Box>
     </Box>
   );
