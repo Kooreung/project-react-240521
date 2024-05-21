@@ -33,8 +33,29 @@ export function BoardWrite() {
         });
         navigate("/");
       })
-      .catch()
+      .catch((e) => {
+        const code = e.response.status;
+
+        if (code === 400) {
+          toast({
+            status: "error",
+            position: "top",
+            description: "게시글 등록에 실패하였습니다.",
+          });
+        }
+      })
       .finally();
+  }
+
+  let disableSaveButton = false;
+  if (title.trim().length === 0) {
+    disableSaveButton = true;
+  }
+  if (content.trim().length === 0) {
+    disableSaveButton = true;
+  }
+  if (writer.trim().length === 0) {
+    disableSaveButton = true;
   }
 
   return (
@@ -63,7 +84,11 @@ export function BoardWrite() {
       </Box>
       <br />
       <Box>
-        <Button colorScheme={"blue"} onClick={handleClickSave}>
+        <Button
+          colorScheme={"blue"}
+          onClick={handleClickSave}
+          isDisabled={disableSaveButton}
+        >
           저장
         </Button>
         <Button>취소</Button>
