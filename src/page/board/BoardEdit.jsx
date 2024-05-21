@@ -42,7 +42,7 @@ export function BoardEdit() {
         navigate(`/board/${board.id}`);
       })
       .catch((err) => {
-        if (err.status === 400) {
+        if (err.response.status === 400) {
           toast({
             status: "error",
             position: "top",
