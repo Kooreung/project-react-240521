@@ -6,7 +6,17 @@ export function Navbar() {
   const navigate = useNavigate();
 
   return (
-    <Flex gap={3}>
+    <Flex
+      gap={3}
+      mb={6}
+      h={10}
+      bgColor="gray.500"
+      justifyContent="space-evenly"
+      fontSize={"large"}
+      fontWeight={"bold"}
+      alignItems="center"
+      color={"white"}
+    >
       <Box
         onClick={() => navigate("/")}
         cursor={"pointer"}
