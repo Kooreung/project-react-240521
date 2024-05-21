@@ -49,25 +49,29 @@ export function BoardView() {
       <Box>
         <FormControl>
           <FormLabel>제목</FormLabel>
-          <Input value={board.title} readOnly />
+          <Input value={board.title} readOnly={true} />
         </FormControl>
       </Box>
       <Box>
         <FormControl>
           <FormLabel>본문</FormLabel>
-          <Textarea value={board.content} readolny />
+          <Textarea value={board.content} readOnly={true} />
         </FormControl>
       </Box>
       <Box>
         <FormControl>
           <FormLabel>작성자</FormLabel>
-          <Input value={board.writer} readOnly />
+          <Input value={board.writer} readOnly={true} />
         </FormControl>
       </Box>
       <Box>
         <FormControl>
           <FormLabel>작성일시</FormLabel>
-          <Input type={"datetime-local"} value={board.inserted} readonly />
+          <Input
+            type={"datetime-local"}
+            value={board.inserted}
+            readOnly={true}
+          />
         </FormControl>
       </Box>
       <Box mt={6}>
