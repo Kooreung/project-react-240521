@@ -31,6 +31,13 @@ export function Navbar() {
       >
         글쓰기
       </Box>
+      <Box
+        onClick={() => navigate("/signup")}
+        cursor={"pointer"}
+        _hover={{ bgColor: "blue.100" }}
+      >
+        회원가입
+      </Box>
     </Flex>
   );
 }
