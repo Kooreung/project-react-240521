@@ -21,9 +21,10 @@ import axios from "axios";
 export function MemberInfo() {
   const { id } = useParams();
   const [member, setMember] = useState(null);
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
+  const [isLoading, setIsLoading] = useState(false);
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   useEffect(() => {
@@ -51,8 +52,10 @@ export function MemberInfo() {
   function handleClickDelete() {
     setIsLoading(true);
     axios
-      .delete(`/api/member/${id}`)
-      .then((res) => {
+      .delete(`/api/member/${id}`, {
+        data: { id, password },
+      })
+      .then(() => {
         toast({
           status: "success",
           position: "top",
@@ -60,14 +63,18 @@ export function MemberInfo() {
         });
         navigate("/member/list");
       })
-      .catch((err) => {
+      .catch(() => {
         toast({
           status: "warning",
           position: "top",
           description: "회원 탈퇴 중 문제가 발생하였습니다.",
         });
       })
-      .finally(setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false);
+        setPassword("");
+        onClose;
+      });
   }
 
   return (
@@ -96,7 +103,7 @@ export function MemberInfo() {
           <Button onClick={handleClickUpdate} colorScheme={"orange"}>
             수정
           </Button>
-          <Button onClick={onOpen} colorScheme={"red"} isLoading={isLoading}>
+          <Button onClick={onOpen} colorScheme={"red"}>
             회원탈퇴
           </Button>
         </Box>
@@ -105,8 +112,13 @@ export function MemberInfo() {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader></ModalHeader>
-          <ModalBody>탈퇴하시겠습니까?</ModalBody>
+          <ModalHeader>탈퇴 확인</ModalHeader>
+          <ModalBody>
+            <FormControl>
+              <FormLabel>암호</FormLabel>
+              <Input onChange={(e) => setPassword(e.target.value)} />
+            </FormControl>
+          </ModalBody>
           <ModalFooter>
             <Button onClick={onClose}>취소</Button>
             <Button
