@@ -8,10 +8,14 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export function MemberList() {
   const [memberList, setMemberList] = useState([]);
+  useEffect(() => {
+    axios.get("/api/member/list").then((res) => setMemberList(res.data));
+  }, []);
 
   if (memberList.length === 0) {
     return <Spinner />;
