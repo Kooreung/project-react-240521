@@ -4,6 +4,8 @@ import {
   FormControl,
   FormLabel,
   Input,
+  InputGroup,
+  InputRightElement,
   useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -51,6 +53,49 @@ export function MemberSignup() {
       });
   }
 
+  function handleCheckEmail() {
+    axios
+      .get(`/api/member/check?email=${email}`)
+      .then((res) => {
+        toast({
+          status: "warning",
+          position: "top",
+          description: "사용할 수 없는 이메일입니다.",
+        });
+      }) // 이미 있는 이메일
+      .catch((err) => {
+        if (err.response.status === 404) {
+          // 사용 가능한 이메일
+          toast({
+            status: "info",
+            position: "top",
+            description: "사용할 수 있는 이메일입니다.",
+          });
+        }
+      });
+  }
+
+  function handleCheckNickName() {
+    axios
+      .get(`/api/member/check?nickName=${nickName}`)
+      .then((res) => {
+        toast({
+          status: "warning",
+          position: "top",
+          description: "사용할 수 없는 닉네임입니다.",
+        });
+      })
+      .catch((err) => {
+        if (err.response.status === 404) {
+          toast({
+            status: "info",
+            position: "top",
+            description: "사용할 수 있는 닉네임입니다.",
+          });
+        }
+      });
+  }
+
   return (
     <Box>
       <Box>회원가입</Box>
@@ -58,7 +103,14 @@ export function MemberSignup() {
         <Box>
           <FormControl>
             <FormLabel>이메일</FormLabel>
-            <Input onChange={(e) => setEmail(e.target.value)} />
+            <InputGroup>
+              <Input onChange={(e) => setEmail(e.target.value)} />
+              <InputRightElement w={"75px"} mr={1}>
+                <Button size={"sm"} onClick={handleCheckEmail}>
+                  중복확인
+                </Button>
+              </InputRightElement>
+            </InputGroup>
           </FormControl>
         </Box>
         <Box>
@@ -73,7 +125,14 @@ export function MemberSignup() {
         <Box>
           <FormControl>
             <FormLabel>닉네임</FormLabel>
-            <Input onChange={(e) => setNickName(e.target.value)} />
+            <InputGroup>
+              <Input onChange={(e) => setNickName(e.target.value)} />
+              <InputRightElement w={"75px"} mr={1}>
+                <Button size={"sm"} onClick={handleCheckNickName}>
+                  중복확인
+                </Button>
+              </InputRightElement>
+            </InputGroup>
           </FormControl>
         </Box>
         <Box mt={6}>
