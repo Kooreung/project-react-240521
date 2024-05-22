@@ -23,7 +23,7 @@ export function BoardList() {
               <Th>#</Th>
               <Th>TITLE</Th>
               <Th>
-                <FontAwesomeIcon icon={faUserPen} />
+                <FontAwesomeIcon icon={faUserPen} /> WRITER
               </Th>
             </Tr>
           </Thead>
