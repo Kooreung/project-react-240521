@@ -4,7 +4,14 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Spinner,
+  useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -17,6 +24,7 @@ export function MemberInfo() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   useEffect(() => {
     axios
@@ -88,15 +96,29 @@ export function MemberInfo() {
           <Button onClick={handleClickUpdate} colorScheme={"orange"}>
             수정
           </Button>
-          <Button
-            onClick={handleClickDelete}
-            colorScheme={"red"}
-            isLoading={isLoading}
-          >
+          <Button onClick={onOpen} colorScheme={"red"} isLoading={isLoading}>
             회원탈퇴
           </Button>
         </Box>
       </Box>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader></ModalHeader>
+          <ModalBody>탈퇴하시겠습니까?</ModalBody>
+          <ModalFooter>
+            <Button onClick={onClose}>취소</Button>
+            <Button
+              onClick={handleClickDelete}
+              colorScheme={"red"}
+              isLoading={isLoading}
+            >
+              확인
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 }
