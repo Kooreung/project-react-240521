@@ -21,6 +21,7 @@ export function MemberSignup() {
   const [isLoading, setIsLoading] = useState(false);
   const [isCheckedEmail, setIsCheckedEmail] = useState(false);
   const [isCheckedNickName, setIsCheckedNickName] = useState(false);
+  const [isValidEmail, setIsValidEmail] = useState(false);
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -121,6 +122,10 @@ export function MemberSignup() {
     isDisabled = true;
   }
 
+  if (!isValidEmail) {
+    isDisabled = true;
+  }
+
   return (
     <Box>
       <Box>회원가입</Box>
@@ -130,13 +135,19 @@ export function MemberSignup() {
             <FormLabel>이메일</FormLabel>
             <InputGroup>
               <Input
+                type={"email"}
                 onChange={(e) => {
                   setEmail(e.target.value);
                   setIsCheckedEmail(false);
+                  setIsValidEmail(!e.target.validity.typeMismatch);
                 }}
               />
               <InputRightElement w={"75px"} mr={1}>
-                <Button size={"sm"} onClick={handleCheckEmail}>
+                <Button
+                  isDisabled={!isValidEmail || email.trim().length == 0}
+                  size={"sm"}
+                  onClick={handleCheckEmail}
+                >
                   중복확인
                 </Button>
               </InputRightElement>
@@ -144,6 +155,11 @@ export function MemberSignup() {
             {isCheckedEmail || (
               <FormHelperText textAlign={"right"}>
                 이메일 중복확인을 해주세요.
+              </FormHelperText>
+            )}
+            {isValidEmail || (
+              <FormHelperText>
+                올바른 이메일 형식으로 작성해주세요.
               </FormHelperText>
             )}
           </FormControl>
@@ -182,7 +198,11 @@ export function MemberSignup() {
                 }}
               />
               <InputRightElement w={"75px"} mr={1}>
-                <Button size={"sm"} onClick={handleCheckNickName}>
+                <Button
+                  isDisabled={nickName.trim().length == 0}
+                  size={"sm"}
+                  onClick={handleCheckNickName}
+                >
                   중복확인
                 </Button>
               </InputRightElement>
