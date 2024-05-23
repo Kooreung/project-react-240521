@@ -47,7 +47,9 @@ export function MemberInfo() {
     return <Spinner />;
   }
 
-  function handleClickUpdate() {}
+  function handleClickUpdate() {
+    navigate(`/member/edit/${member.id}`);
+  }
 
   function handleClickDelete() {
     setIsLoading(true);
