@@ -54,10 +54,24 @@ export function MemberEdit() {
     axios
       .put("/api/member/modify", { ...member, oldPassword })
       .then(() => {
-        navigate("/member/list");
+        navigate(`/member/${id}`);
+        toast({
+          status: "success",
+          position: "top",
+          description: "회원 정보가 수정 되었습니다.",
+        });
       })
-      .catch(() => {})
-      .finally(() => {});
+      .catch((err) => {
+        toast({
+          status: "error",
+          position: "top",
+          description: "회원 정보 수정에 실패하였습니다.",
+        });
+      })
+      .finally(() => {
+        onClose();
+        setOldNickName("");
+      });
   }
 
   function handleCheckNickName() {
