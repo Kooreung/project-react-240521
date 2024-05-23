@@ -38,7 +38,7 @@ export function MemberEdit() {
       .then((res) => {
         const memberData = res.data;
         setMember({ ...memberData, password: "" });
-        setOldNickName(member.nickName);
+        setOldNickName(memberData.nickName);
       })
       .catch(() => {
         toast({
@@ -138,8 +138,9 @@ export function MemberEdit() {
               <Input
                 value={member.nickName}
                 onChange={(e) => {
+                  const newNickName = e.target.value.trim();
                   setMember({ ...member, nickName: e.target.value.trim() });
-                  setIsCheckedNickName(false);
+                  setIsCheckedNickName(newNickName === oldNickName);
                 }}
               />
               <InputRightElement w={"75px"} mr={1}>
@@ -160,7 +161,11 @@ export function MemberEdit() {
         <Box>
           <Button
             colorScheme={"blue"}
-            isDisabled={member.nickName.length == 0 || isDisabledToPassword}
+            isDisabled={
+              member.nickName.length == 0 ||
+              isDisabledToPassword ||
+              !isCheckedNickName
+            }
             onClick={onOpen}
           >
             수정
