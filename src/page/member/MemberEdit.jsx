@@ -149,7 +149,8 @@ export function MemberEdit() {
                   onClick={handleCheckNickName}
                   isDisabled={
                     member.nickName.trim().length == 0 ||
-                    member.nickName === oldNickName
+                    member.nickName === oldNickName ||
+                    isCheckedNickName
                   }
                 >
                   중복확인
