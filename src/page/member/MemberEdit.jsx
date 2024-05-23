@@ -22,7 +22,7 @@ export function MemberEdit() {
 
   useEffect(() => {
     axios
-      .get(`/api/member/edit/${id}`)
+      .get(`/api/member/${id}`)
       .then((res) => {
         const memberData = res.data;
         setMember({ ...memberData, password: "" });
@@ -40,7 +40,9 @@ export function MemberEdit() {
   function handleClickSave() {
     axios
       .put("/api/member/modify", member)
-      .then((res) => {})
+      .then((res) => {
+        navigate("/member/list");
+      })
       .catch()
       .finally();
   }
