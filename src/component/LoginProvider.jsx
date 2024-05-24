@@ -47,7 +47,7 @@ export function LoginProvider({ children }) {
         login: login,
         logout: logout,
         isLoggedIn: isLoggedIn,
-        hasEmail: hasAccess,
+        hasAccess: hasAccess,
       }}
     >
       {children}
