@@ -88,11 +88,7 @@ export function BoardEdit() {
         <Box>
           <FormControl>
             <FormLabel>작성자</FormLabel>
-            <Input
-              defaultValue={board.writer}
-              onChange={(e) => setBoard({ ...board, writer: e.target.value })}
-              readOnly
-            />
+            <Input defaultValue={board.writer} readOnly />
           </FormControl>
         </Box>
         <Box>
