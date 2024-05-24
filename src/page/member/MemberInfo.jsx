@@ -14,14 +14,16 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { LoginContext } from "../../component/LoginProvider.jsx";
 
 export function MemberInfo() {
   const { id } = useParams();
   const [member, setMember] = useState(null);
   const [password, setPassword] = useState("");
+  const account = useContext(LoginContext);
   const navigate = useNavigate();
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
@@ -66,6 +68,7 @@ export function MemberInfo() {
           position: "top",
           description: "회원 탈퇴를 하였습니다.",
         });
+        account.logout();
         navigate("/member/list");
       })
       .catch(() => {
