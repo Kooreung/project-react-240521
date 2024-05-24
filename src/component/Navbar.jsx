@@ -39,7 +39,11 @@ export function Navbar() {
       )}
       <Spacer />
       {account.isLoggedIn() && (
-        <Box>
+        <Box
+          onClick={() => navigate(`/member/${account.id}`)}
+          cursor={"pointer"}
+          _hover={{ bgColor: "blue.100" }}
+        >
           <FontAwesomeIcon icon={faUser} /> {account.nickName}
         </Box>
       )}

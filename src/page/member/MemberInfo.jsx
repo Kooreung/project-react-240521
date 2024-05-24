@@ -31,7 +31,9 @@ export function MemberInfo() {
 
   useEffect(() => {
     axios
-      .get(`/api/member/${id}`)
+      .get(`/api/member/${id}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
       .then((res) => setMember(res.data))
       .catch((err) => {
         if (err.response.status === 404) {
@@ -47,7 +49,7 @@ export function MemberInfo() {
             position: "top",
             description: "권한이 없습니다.",
           });
-          navigate(-1);
+          navigate("/member/list");
         }
       });
   }, []);
