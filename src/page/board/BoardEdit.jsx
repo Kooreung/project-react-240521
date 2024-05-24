@@ -91,6 +91,7 @@ export function BoardEdit() {
             <Input
               defaultValue={board.writer}
               onChange={(e) => setBoard({ ...board, writer: e.target.value })}
+              readOnly
             />
           </FormControl>
         </Box>
