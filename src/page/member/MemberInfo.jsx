@@ -56,6 +56,9 @@ export function MemberInfo() {
     axios
       .delete(`/api/member/${id}`, {
         data: { id, password },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       })
       .then(() => {
         toast({
