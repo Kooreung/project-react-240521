@@ -47,7 +47,7 @@ export function Navbar() {
           <FontAwesomeIcon icon={faUser} /> {account.nickName}
         </Box>
       )}
-      {account.isLoggedIn() && (
+      {account.isAdmin() && (
         <Box
           onClick={() => navigate("/member/list")}
           cursor={"pointer"}

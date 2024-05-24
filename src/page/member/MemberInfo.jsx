@@ -116,14 +116,16 @@ export function MemberInfo() {
             <Input value={member.inserted} readOnly />
           </FormControl>
         </Box>
-        <Box mt={6}>
-          <Button onClick={handleClickUpdate} colorScheme={"orange"}>
-            수정
-          </Button>
-          <Button onClick={onOpen} colorScheme={"red"}>
-            회원탈퇴
-          </Button>
-        </Box>
+        {account.hasAccess(member.id) && (
+          <Box mt={6}>
+            <Button onClick={handleClickUpdate} colorScheme={"orange"}>
+              수정
+            </Button>
+            <Button onClick={onOpen} colorScheme={"red"}>
+              회원탈퇴
+            </Button>
+          </Box>
+        )}
       </Box>
 
       <Modal isOpen={isOpen} onClose={onClose}>
