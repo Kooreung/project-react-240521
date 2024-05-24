@@ -48,26 +48,28 @@ export function BoardView() {
   }
 
   function handleRemoveClick() {
-    axios.delete(`/api/board/${id}`),
-      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
-        .then(() => {
-          toast({
-            status: "success",
-            position: "top",
-            description: `${id}번 게시물이 삭제 되었습니다.`,
-          });
-          navigate("/");
-        })
-        .catch(() => {
-          toast({
-            status: "error",
-            position: "top",
-            description: `${id}번 게시물 삭제에 실패하였습니다.`,
-          });
-        })
-        .finally(() => {
-          onClose();
+    axios
+      .delete(`/api/board/${id}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then(() => {
+        toast({
+          status: "success",
+          position: "top",
+          description: `${id}번 게시물이 삭제 되었습니다.`,
         });
+        navigate("/");
+      })
+      .catch(() => {
+        toast({
+          status: "error",
+          position: "top",
+          description: `${id}번 게시물 삭제에 실패하였습니다.`,
+        });
+      })
+      .finally(() => {
+        onClose();
+      });
   }
 
   return (
