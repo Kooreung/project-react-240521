@@ -3,14 +3,17 @@ import { Box, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPen } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export function BoardList() {
   const [boardList, setBoardList] = useState([]);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    axios.get("/api/board/list").then((res) => setBoardList(res.data));
+    axios
+      .get(`/api/board/list?${searchParams}`)
+      .then((res) => setBoardList(res.data));
   }, []);
 
   return (
