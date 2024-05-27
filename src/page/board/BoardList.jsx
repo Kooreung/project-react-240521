@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Center,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleLeft,
@@ -61,7 +71,7 @@ export function BoardList() {
       </Box>
 
       <Box>
-        <Box>
+        <Center>
           {pageInfo.prevPageNumber && (
             <>
               <Button onClick={() => navigate(`/?page=1`)}>
@@ -99,7 +109,7 @@ export function BoardList() {
               </Button>
             </>
           )}
-        </Box>
+        </Center>
       </Box>
     </Box>
   );
