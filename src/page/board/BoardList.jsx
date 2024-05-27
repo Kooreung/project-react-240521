@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPen } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleLeft,
+  faAngleRight,
+  faAnglesLeft,
+  faAnglesRight,
+  faUserPen,
+} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
@@ -53,18 +59,47 @@ export function BoardList() {
           </Tbody>
         </Table>
       </Box>
+
       <Box>
-        {pageNumbers.map((pageNumber) => (
-          <Button
-            onClick={() => navigate(`/?page=${pageNumber}`)}
-            key={pageNumber}
-            colorScheme={
-              pageNumber === pageInfo.currentPageNumber ? "blue" : "gray"
-            }
-          >
-            {pageNumber}
-          </Button>
-        ))}
+        <Box>
+          {pageInfo.prevPageNumber && (
+            <>
+              <Button onClick={() => navigate(`/?page=1`)}>
+                <FontAwesomeIcon icon={faAnglesLeft} />
+              </Button>
+              <Button
+                onClick={() => navigate(`/?page=${pageInfo.prevPageNumber}`)}
+              >
+                <FontAwesomeIcon icon={faAngleLeft} />
+              </Button>
+            </>
+          )}
+          {pageNumbers.map((pageNumber) => (
+            <Button
+              onClick={() => navigate(`/?page=${pageNumber}`)}
+              key={pageNumber}
+              colorScheme={
+                pageNumber === pageInfo.currentPageNumber ? "blue" : "gray"
+              }
+            >
+              {pageNumber}
+            </Button>
+          ))}
+          {pageInfo.nextPageNumber && (
+            <>
+              <Button
+                onClick={() => navigate(`/?page=${pageInfo.nextPageNumber}`)}
+              >
+                <FontAwesomeIcon icon={faAngleRight} />
+              </Button>
+              <Button
+                onClick={() => navigate(`/?page=${pageInfo.lastPageNumber}`)}
+              >
+                <FontAwesomeIcon icon={faAnglesRight} />
+              </Button>
+            </>
+          )}
+        </Box>
       </Box>
     </Box>
   );
