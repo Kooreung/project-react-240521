@@ -3,6 +3,7 @@ import {
   Button,
   FormControl,
   FormLabel,
+  Image,
   Input,
   Modal,
   ModalBody,
@@ -16,7 +17,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { LoginContext } from "../../component/LoginProvider.jsx";
 
@@ -88,6 +89,14 @@ export function BoardView() {
           <FormLabel>본문</FormLabel>
           <Textarea value={board.content} readOnly={true} />
         </FormControl>
+      </Box>
+      <Box>
+        {board.imageSrcList &&
+          board.imageSrcList.map((src) => (
+            <Box border={"2px solid black"} m={3} key={src}>
+              <Image src={src} />
+            </Box>
+          ))}
       </Box>
       <Box>
         <FormControl>
