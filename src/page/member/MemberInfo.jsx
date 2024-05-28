@@ -78,7 +78,7 @@ export function MemberInfo() {
           description: "회원 탈퇴를 하였습니다.",
         });
         account.logout();
-        navigate("/member/list");
+        navigate("/");
       })
       .catch(() => {
         toast({
