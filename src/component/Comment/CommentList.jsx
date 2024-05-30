@@ -3,7 +3,7 @@ import axios from "axios";
 import { Box, Flex, Spacer } from "@chakra-ui/react";
 
 export function CommentList({ boardId }) {
-  const [commentList, setCommentList] = useState("");
+  const [commentList, setCommentList] = useState([]);
 
   useEffect(() => {
     axios
