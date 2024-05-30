@@ -4,12 +4,13 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
-export function CommentWrite() {
+export function CommentWrite({ boardId }) {
   const [comment, setComment] = useState("");
 
   function handleCommentSubmitClick() {
     axios
       .post("/api/comment/add", {
+        boardId,
         comment,
       })
       .then((res) => {})
