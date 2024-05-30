@@ -1,15 +1,23 @@
-import { Box, Button, Flex, Spacer } from "@chakra-ui/react";
+import { Box, Button, Flex, Spacer, useToast } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 export function CommentItem({ comment }) {
+  const toast = useToast();
+
   function handleCommentRemoveClick() {
     axios
       .delete(`/api/comment/remove`, {
         data: { id: comment.id },
       })
-      .then((res) => {})
+      .then((res) => {
+        toast({
+          status: "success",
+          position: "top",
+          description: "댓글이 삭제되었습니다.",
+        });
+      })
       .catch((err) => {})
       .finally(() => {});
   }
@@ -22,12 +30,14 @@ export function CommentItem({ comment }) {
           <Spacer />
           <Box>{comment.inserted}</Box>
         </Flex>
-        <Box>{comment.comment}</Box>
-        <Box>
-          <Button colorScheme="red" onClick={handleCommentRemoveClick}>
-            <FontAwesomeIcon icon={faTrashCan} />
-          </Button>
-        </Box>
+        <Flex>
+          <Box>{comment.comment}</Box>
+          <Box>
+            <Button colorScheme="red" onClick={handleCommentRemoveClick}>
+              <FontAwesomeIcon icon={faTrashCan} />
+            </Button>
+          </Box>
+        </Flex>
       </Box>
     </Box>
   );
