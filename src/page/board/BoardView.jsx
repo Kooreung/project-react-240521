@@ -119,18 +119,12 @@ export function BoardView() {
               hasArrow
               label="로그인 해주세요."
             >
-              <>
-                <Box
-                  onClick={handleClickLike}
-                  cursor="pointer"
-                  fontSize={"3xl"}
-                >
-                  {like.like && <FontAwesomeIcon icon={fullHeart} />}
-                  {like.like || <FontAwesomeIcon icon={emptyHeart} />}
-                </Box>
-                <Box fontSize={"3xl"}>{like.count}</Box>
-              </>
+              <Box onClick={handleClickLike} cursor="pointer" fontSize={"3xl"}>
+                {like.like && <FontAwesomeIcon icon={fullHeart} />}
+                {like.like || <FontAwesomeIcon icon={emptyHeart} />}
+              </Box>
             </Tooltip>
+            <Box fontSize={"3xl"}>{like.count}</Box>
           </Flex>
         )}
         {isLikeProcessing && (
