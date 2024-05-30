@@ -30,7 +30,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export function BoardView() {
   const { id } = useParams();
   const [board, setBoard] = useState(null);
-  const [like, setLike] = useState(false);
+  const [like, setLike] = useState({
+    like: false,
+    count: 0,
+  });
+  const [isLikeProcessing, setIsLikeProcessing] = useState(false);
   const account = useContext(LoginContext);
   const toast = useToast();
   const navigate = useNavigate();
@@ -39,7 +43,10 @@ export function BoardView() {
   useEffect(() => {
     axios
       .get(`/api/board/${id}`)
-      .then((res) => setBoard(res.data))
+      .then((res) => {
+        setBoard(res.data.board);
+        setLike(res.data.like);
+      })
       .catch((err) => {
         if (err.response.status === 404) {
           toast({
@@ -82,16 +89,34 @@ export function BoardView() {
       });
   }
 
+  function handleClickLike() {
+    setIsLikeProcessing(true);
+    axios
+      .put(`/api/board/like`, { boardId: board.id })
+      .then((res) => {
+        setLike(res.data);
+      })
+      .finally(() => setIsLikeProcessing(false));
+  }
+
   return (
     <Box>
-      <Flex>
-        <Heading>{board.id} 번 게시물</Heading>
-        <Spacer />
-        <Box onClick={() => setLike(!like)} cursor="pointer" fontSize={"3xl"}>
-          {like && <FontAwesomeIcon icon={fullHeart} />}
-          {like || <FontAwesomeIcon icon={emptyHeart} />}
+      {isLikeProcessing || (
+        <Flex>
+          <Heading>{board.id} 번 게시물</Heading>
+          <Spacer />
+          <Box onClick={handleClickLike} cursor="pointer" fontSize={"3xl"}>
+            {like && <FontAwesomeIcon icon={fullHeart} />}
+            {like || <FontAwesomeIcon icon={emptyHeart} />}
+          </Box>
+          <Box fontSize={"3xl"}>{like.count}</Box>
+        </Flex>
+      )}
+      {isLikeProcessing && (
+        <Box pr={3}>
+          <Spinner />
         </Box>
-      </Flex>
+      )}
       <Box>
         <FormControl>
           <FormLabel>제목</FormLabel>
