@@ -16,6 +16,7 @@ import {
   Spacer,
   Spinner,
   Textarea,
+  Tooltip,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
@@ -90,33 +91,46 @@ export function BoardView() {
   }
 
   function handleClickLike() {
+    if (!account.isLoggedIn()) {
+      return;
+    }
     setIsLikeProcessing(true);
     axios
       .put(`/api/board/like`, { boardId: board.id })
       .then((res) => {
         setLike(res.data);
       })
-      .finally(() => setIsLikeProcessing(false));
+      .finally(() => {
+        setIsLikeProcessing(false);
+      });
   }
 
   return (
     <Box>
-      {isLikeProcessing || (
-        <Flex>
-          <Heading>{board.id} 번 게시물</Heading>
-          <Spacer />
-          <Box onClick={handleClickLike} cursor="pointer" fontSize={"3xl"}>
-            {like && <FontAwesomeIcon icon={fullHeart} />}
-            {like || <FontAwesomeIcon icon={emptyHeart} />}
+      <Flex>
+        <Heading>{board.id} 번 게시물</Heading>
+        <Spacer />
+        {isLikeProcessing || (
+          <Flex>
+            <Tooltip
+              isDisabled={account.isLoggedIn()}
+              hasArrow
+              label="로그인 해주세요."
+            >
+              <Box onClick={handleClickLike} cursor="pointer" fontSize={"3xl"}>
+                {like && <FontAwesomeIcon icon={fullHeart} />}
+                {like || <FontAwesomeIcon icon={emptyHeart} />}
+              </Box>
+              <Box fontSize={"3xl"}>{like.count}</Box>
+            </Tooltip>
+          </Flex>
+        )}
+        {isLikeProcessing && (
+          <Box pr={3}>
+            <Spinner />
           </Box>
-          <Box fontSize={"3xl"}>{like.count}</Box>
-        </Flex>
-      )}
-      {isLikeProcessing && (
-        <Box pr={3}>
-          <Spinner />
-        </Box>
-      )}
+        )}
+      </Flex>
       <Box>
         <FormControl>
           <FormLabel>제목</FormLabel>
