@@ -5,13 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { LoginContext } from "../LoginProvider.jsx";
 
-export function CommentWrite({ boardId, isSending, setIsSending }) {
+export function CommentWrite({ boardId, isProcessing, setIsProcessing }) {
   const [comment, setComment] = useState("");
   const account = useContext(LoginContext);
   const toast = useToast();
 
   function handleCommentSubmitClick() {
-    setIsSending(true);
+    setIsProcessing(true);
     axios
       .post("/api/comment/add", {
         boardId,
@@ -27,7 +27,7 @@ export function CommentWrite({ boardId, isSending, setIsSending }) {
       })
       .catch(() => {})
       .finally(() => {
-        setIsSending(false);
+        setIsProcessing(false);
       });
   }
 
@@ -48,7 +48,7 @@ export function CommentWrite({ boardId, isSending, setIsSending }) {
           isDisabled={comment.trim().length === 0 || !account.isLoggedIn()}
           onClick={handleCommentSubmitClick}
           colorScheme={"blue"}
-          isLoading={isSending}
+          isLoading={isProcessing}
         >
           <FontAwesomeIcon icon={faPaperPlane} />
         </Button>
