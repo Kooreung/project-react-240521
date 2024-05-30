@@ -27,6 +27,7 @@ import { LoginContext } from "../../component/LoginProvider.jsx";
 import { faHeart as fullHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CommentComponent } from "../../component/Comment/CommentComponent.jsx";
 
 export function BoardView() {
   const { id } = useParams();
@@ -100,6 +101,7 @@ export function BoardView() {
       .then((res) => {
         setLike(res.data);
       })
+      .catch(() => {})
       .finally(() => {
         setIsLikeProcessing(false);
       });
@@ -117,11 +119,17 @@ export function BoardView() {
               hasArrow
               label="로그인 해주세요."
             >
-              <Box onClick={handleClickLike} cursor="pointer" fontSize={"3xl"}>
-                {like && <FontAwesomeIcon icon={fullHeart} />}
-                {like || <FontAwesomeIcon icon={emptyHeart} />}
-              </Box>
-              <Box fontSize={"3xl"}>{like.count}</Box>
+              <>
+                <Box
+                  onClick={handleClickLike}
+                  cursor="pointer"
+                  fontSize={"3xl"}
+                >
+                  {like.like && <FontAwesomeIcon icon={fullHeart} />}
+                  {like.like || <FontAwesomeIcon icon={emptyHeart} />}
+                </Box>
+                <Box fontSize={"3xl"}>{like.count}</Box>
+              </>
             </Tooltip>
           </Flex>
         )}
@@ -180,6 +188,8 @@ export function BoardView() {
           </Button>
         </Box>
       )}
+
+      <CommentComponent boardId={board.id} />
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
