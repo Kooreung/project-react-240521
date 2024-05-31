@@ -5,10 +5,14 @@ import {
   Badge,
   Box,
   Button,
+  Card,
+  CardBody,
+  CardHeader,
   Flex,
   FormControl,
   FormHelperText,
   FormLabel,
+  Heading,
   Image,
   Input,
   Modal,
@@ -18,6 +22,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Spinner,
+  Stack,
   Switch,
   Text,
   Textarea,
@@ -102,7 +107,9 @@ export function BoardEdit() {
 
   return (
     <Box>
-      <Box>{board.id}번 게시물 수정</Box>
+      <Box fontWeight={"bold"} fontSize={"2xl"} mb={6} color={"blue.700"}>
+        {board.id}번 게시물 수정
+      </Box>
       <Box>
         <Box>
           <FormControl>
@@ -164,9 +171,18 @@ export function BoardEdit() {
             </FormHelperText>
           </FormControl>
         </Box>
-        <Box>
-          <ul>{fileNameList}</ul>
-        </Box>
+        {fileNameList.length > 0 && (
+          <Box>
+            <Card>
+              <CardHeader>
+                <Heading size={"md"}>선택된 파일 목록</Heading>
+              </CardHeader>
+              <CardBody>
+                <Stack>{fileNameList}</Stack>
+              </CardBody>
+            </Card>
+          </Box>
+        )}
         <Box>
           <FormControl>
             <FormLabel>작성자</FormLabel>
