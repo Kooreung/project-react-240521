@@ -5,6 +5,7 @@ import {
   Button,
   Center,
   Flex,
+  IconButton,
   Input,
   Select,
   Table,
@@ -83,13 +84,15 @@ export function BoardList() {
             <Table>
               <Thead>
                 <Tr borderY={"solid 2px gray"}>
-                  <Th w={20}>#</Th>
-                  <Th>TITLE</Th>
-                  <Th w={20}>
+                  <Th color={"blue.700"} w={40}>
+                    게시물 번호
+                  </Th>
+                  <Th color={"blue.700"}>제목</Th>
+                  <Th color={"blue.700"} w={20}>
                     <FontAwesomeIcon icon={faHeart} />
                   </Th>
-                  <Th w={40}>
-                    <FontAwesomeIcon icon={faUserPen} /> WRITER
+                  <Th color={"blue.700"} w={40}>
+                    <FontAwesomeIcon icon={faUserPen} /> 작성자
                   </Th>
                 </Tr>
               </Thead>
@@ -101,21 +104,28 @@ export function BoardList() {
                     cursor={"pointer"}
                     _hover={{ bgColor: "gray.50" }}
                   >
-                    <Td>{board.id}</Td>
+                    <Td>
+                      <Center>{board.id} </Center>
+                    </Td>
                     <Td>
                       {board.title}
-                      {board.numberOfImages && (
-                        <Badge>
-                          <FontAwesomeIcon icon={faImage} />
-                          {board.numberOfImages}
-                        </Badge>
-                      )}
-                      {board.numberOfComments > 0 && (
-                        <Badge>
-                          <FontAwesomeIcon icon={faComments} />
-                          {board.numberOfComments}
-                        </Badge>
-                      )}
+                      <Badge ml={3} color={"blue.700"}>
+                        <Flex gap={1}>
+                          <Box>
+                            <FontAwesomeIcon icon={faComments} />
+                          </Box>
+                          <Box>{board.numberOfComments}</Box>
+                        </Flex>
+                      </Badge>
+
+                      <Badge color={"blue.700"}>
+                        <Flex gap={1}>
+                          <Box>
+                            <FontAwesomeIcon icon={faImage} />
+                          </Box>
+                          <Box>{board.numberOfImages}</Box>
+                        </Flex>
+                      </Badge>
                     </Td>
                     <Td>{board.numberOfLike > 0 && board.numberOfLike}</Td>
                     <Td>{board.writer}</Td>
@@ -133,6 +143,8 @@ export function BoardList() {
                 <Select
                   value={searchType}
                   onChange={(e) => setSearchType(e.target.value)}
+                  isInvalid
+                  errorBorderColor={"blue.700"}
                 >
                   <option value="all">전체</option>
                   <option value="text">글</option>
@@ -144,26 +156,34 @@ export function BoardList() {
                   value={searchKeyword}
                   onChange={(e) => setSearchKeyword(e.target.value)}
                   placeholder="검색어"
+                  isInvalid
+                  errorBorderColor={"blue.700"}
                 />
               </Box>
               <Box>
-                <Button onClick={handleSearchClick}>
+                <IconButton
+                  onClick={handleSearchClick}
+                  color={"blue.700"}
+                  borderColor={"blue.700"}
+                >
                   <FontAwesomeIcon icon={faMagnifyingGlass} />
-                </Button>
+                </IconButton>
               </Box>
             </Center>
             <Flex>
               {account.isLoggedIn() && (
-                <Box
+                <Button
                   p={{ base: 3, lg: 6 }}
                   fontSize={"large"}
                   fontWeight={"bold"}
                   onClick={() => navigate("/write")}
                   cursor={"pointer"}
-                  _hover={{ bgColor: "gray.200" }}
+                  bgColor={"gray.300"}
+                  size={"lg"}
+                  _hover={{ bgColor: "blue.700", color: "gray.100" }}
                 >
                   글쓰기
-                </Box>
+                </Button>
               )}
             </Flex>
           </Flex>
