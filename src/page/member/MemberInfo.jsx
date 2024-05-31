@@ -1,6 +1,8 @@
 import {
   Box,
   Button,
+  Center,
+  Flex,
   FormControl,
   FormLabel,
   Input,
@@ -95,64 +97,68 @@ export function MemberInfo() {
   }
 
   return (
-    <Box>
-      <Box>{member.nickName}의 회원 정보</Box>
-      <Box>
-        <Box>
-          <FormControl>
-            <FormLabel>이메일</FormLabel>
-            <Input value={member.email} readOnly />
-          </FormControl>
+    <Center>
+      <Box mb={10} w={{ base: 700, lg: 1000 }}>
+        <Box fontWeight={"bold"} fontSize={"2xl"} mb={6} color={"blue.700"}>
+          {member.nickName} 의 회원 정보
         </Box>
         <Box>
-          <FormControl>
-            <FormLabel>닉네임</FormLabel>
-            <Input value={member.nickName} readOnly />
-          </FormControl>
-        </Box>
-        <Box>
-          <FormControl>
-            <FormLabel>가입일자</FormLabel>
-            <Input value={member.inserted} readOnly />
-          </FormControl>
-        </Box>
-        {account.hasAccess(member.id) && (
-          <Box mt={6}>
-            <Button onClick={handleClickUpdate} colorScheme={"orange"}>
-              수정
-            </Button>
-            <Button onClick={onOpen} colorScheme={"red"}>
-              회원탈퇴
-            </Button>
-          </Box>
-        )}
-      </Box>
-
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>탈퇴 확인</ModalHeader>
-          <ModalBody>
+          <Box my={4}>
             <FormControl>
-              <FormLabel>암호</FormLabel>
-              <Input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <FormLabel>이메일</FormLabel>
+              <Input value={member.email} readOnly />
             </FormControl>
-          </ModalBody>
-          <ModalFooter>
-            <Button onClick={onClose}>취소</Button>
-            <Button
-              onClick={handleClickDelete}
-              colorScheme={"red"}
-              isLoading={isLoading}
-            >
-              확인
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </Box>
+          </Box>
+          <Box my={4}>
+            <FormControl>
+              <FormLabel>닉네임</FormLabel>
+              <Input value={member.nickName} readOnly />
+            </FormControl>
+          </Box>
+          <Box my={4}>
+            <FormControl>
+              <FormLabel>가입일자</FormLabel>
+              <Input value={member.inserted} readOnly />
+            </FormControl>
+          </Box>
+          {account.hasAccess(member.id) && (
+            <Flex mt={6} gap={4}>
+              <Button onClick={handleClickUpdate} colorScheme={"orange"}>
+                수정
+              </Button>
+              <Button onClick={onOpen} colorScheme={"red"}>
+                회원탈퇴
+              </Button>
+            </Flex>
+          )}
+        </Box>
+
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>탈퇴 확인</ModalHeader>
+            <ModalBody>
+              <FormControl>
+                <FormLabel>암호</FormLabel>
+                <Input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </FormControl>
+            </ModalBody>
+            <ModalFooter>
+              <Button onClick={onClose}>취소</Button>
+              <Button
+                onClick={handleClickDelete}
+                colorScheme={"red"}
+                isLoading={isLoading}
+              >
+                확인
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </Box>
+    </Center>
   );
 }
