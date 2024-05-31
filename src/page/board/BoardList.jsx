@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Badge,
   Box,
@@ -28,6 +28,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { LoginContext } from "../../component/LoginProvider.jsx";
 
 export function BoardList() {
   const [boardList, setBoardList] = useState([]);
@@ -36,6 +37,7 @@ export function BoardList() {
   const [searchKeyword, setSearchKeyword] = useState("");
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const account = useContext(LoginContext);
 
   useEffect(() => {
     axios.get(`/api/board/list?${searchParams}`).then((res) => {
@@ -123,32 +125,49 @@ export function BoardList() {
             </Table>
           )}
         </Box>
-        <Center my={10}>
-          <Flex>
-            <Box>
-              <Select
-                value={searchType}
-                onChange={(e) => setSearchType(e.target.value)}
-              >
-                <option value="all">전체</option>
-                <option value="text">글</option>
-                <option value="nickName">작성자</option>
-              </Select>
-            </Box>
-            <Box>
-              <Input
-                value={searchKeyword}
-                onChange={(e) => setSearchKeyword(e.target.value)}
-                placeholder="검색어"
-              />
-            </Box>
-            <Box>
-              <Button onClick={handleSearchClick}>
-                <FontAwesomeIcon icon={faMagnifyingGlass} />
-              </Button>
-            </Box>
+        <Box my={10}>
+          <Flex align={"center"} justify={"space-between"}>
+            <Box w={"102px"}></Box>
+            <Center>
+              <Box>
+                <Select
+                  value={searchType}
+                  onChange={(e) => setSearchType(e.target.value)}
+                >
+                  <option value="all">전체</option>
+                  <option value="text">글</option>
+                  <option value="nickName">작성자</option>
+                </Select>
+              </Box>
+              <Box>
+                <Input
+                  value={searchKeyword}
+                  onChange={(e) => setSearchKeyword(e.target.value)}
+                  placeholder="검색어"
+                />
+              </Box>
+              <Box>
+                <Button onClick={handleSearchClick}>
+                  <FontAwesomeIcon icon={faMagnifyingGlass} />
+                </Button>
+              </Box>
+            </Center>
+            <Flex>
+              {account.isLoggedIn() && (
+                <Box
+                  p={{ base: 3, lg: 6 }}
+                  fontSize={"large"}
+                  fontWeight={"bold"}
+                  onClick={() => navigate("/write")}
+                  cursor={"pointer"}
+                  _hover={{ bgColor: "gray.200" }}
+                >
+                  글쓰기
+                </Box>
+              )}
+            </Flex>
           </Flex>
-        </Center>
+        </Box>
         <Box>
           <Center>
             {pageInfo.prevPageNumber && (
