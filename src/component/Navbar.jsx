@@ -32,7 +32,7 @@ export function Navbar() {
       <Spacer />
       {account.isLoggedIn() && (
         <Center
-          p={6}
+          p={{ base: 3, lg: 6 }}
           fontSize={"large"}
           fontWeight={"bold"}
           onClick={() => navigate("/write")}
@@ -45,7 +45,7 @@ export function Navbar() {
 
       {account.isLoggedIn() && (
         <Center
-          p={6}
+          p={{ base: 3, lg: 6 }}
           fontSize={"large"}
           fontWeight={"bold"}
           onClick={() => navigate(`/member/${account.id}`)}
@@ -57,7 +57,7 @@ export function Navbar() {
       )}
       {account.isAdmin() && (
         <Center
-          p={6}
+          p={{ base: 3, lg: 6 }}
           fontSize={"large"}
           fontWeight={"bold"}
           onClick={() => navigate("/member/list")}
@@ -69,7 +69,7 @@ export function Navbar() {
       )}
       {account.isLoggedIn() || (
         <Center
-          p={6}
+          p={{ base: 3, lg: 6 }}
           fontSize={"large"}
           fontWeight={"bold"}
           onClick={() => navigate("/signup")}
@@ -81,7 +81,7 @@ export function Navbar() {
       )}
       {account.isLoggedIn() || (
         <Center
-          p={6}
+          p={{ base: 3, lg: 6 }}
           fontSize={"large"}
           fontWeight={"bold"}
           onClick={() => navigate("/login")}
@@ -93,7 +93,7 @@ export function Navbar() {
       )}
       {account.isLoggedIn() && (
         <Center
-          p={6}
+          p={{ base: 3, lg: 6 }}
           fontSize={"large"}
           fontWeight={"bold"}
           onClick={() => {
