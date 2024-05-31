@@ -35,18 +35,6 @@ export function Navbar() {
         </Hide>
       </Center>
       <Spacer />
-      {account.isLoggedIn() && (
-        <Center
-          p={{ base: 3, lg: 6 }}
-          fontSize={"large"}
-          fontWeight={"bold"}
-          onClick={() => navigate("/write")}
-          cursor={"pointer"}
-          _hover={{ bgColor: "gray.200" }}
-        >
-          글쓰기
-        </Center>
-      )}
 
       {account.isLoggedIn() && (
         <Center
