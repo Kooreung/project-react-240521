@@ -26,7 +26,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { LoginContext } from "../../component/LoginProvider.jsx";
-import { faHeart as fullHeart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHeart as fullHeart,
+  faList,
+} from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CommentComponent } from "../../component/Comment/CommentComponent.jsx";
@@ -191,10 +194,16 @@ export function BoardView() {
             <Button colorScheme={"red"} onClick={onOpen}>
               삭제
             </Button>
+            <Spacer />
           </Flex>
         )}
         <Box my={8} border={"2px solid gray"} opacity={"0.25"} />
-
+        <Box display={"flex"} justifyContent={"flex-end"}>
+          <Button gap={2} colorScheme={"green"} onClick={() => navigate("/")}>
+            <FontAwesomeIcon icon={faList} />
+            <Box>목록</Box>
+          </Button>
+        </Box>
         <CommentComponent boardId={board.id} />
 
         <Modal isOpen={isOpen} onClose={onClose}>
