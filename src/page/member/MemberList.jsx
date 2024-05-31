@@ -1,5 +1,6 @@
 import {
   Box,
+  Center,
   Spinner,
   Table,
   Tbody,
@@ -25,35 +26,43 @@ export function MemberList() {
   }
 
   return (
-    <Box>
-      <Box>회원 목록</Box>
-      <Box>
-        <Table>
-          <Thead>
-            <Tr>
-              <Th>#</Th>
-              <Th>이메일</Th>
-              <Th>닉네임</Th>
-              <Th>가입일시</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {memberList.map((member) => (
-              <Tr
-                cursor={"pointer"}
-                _hover={{ bgColor: "blue.100" }}
-                onClick={() => navigate(`/member/${member.id}`)}
-                key={member.id}
-              >
-                <Td>{member.id}</Td>
-                <Td>{member.email}</Td>
-                <Td>{member.nickName}</Td>
-                <Td>{member.signupDateAndTime}</Td>
+    <Center>
+      <Box mb={10} w={{ base: 700, lg: 1000 }}>
+        <Box fontWeight={"bold"} fontSize={"2xl"} mb={6} color={"blue.700"}>
+          회원 목록
+        </Box>
+        <Box>
+          <Table>
+            <Thead>
+              <Tr borderY={"solid 2px gray"}>
+                <Th color={"blue.700"} w={20}>
+                  회원번호
+                </Th>
+                <Th color={"blue.700"}>이메일</Th>
+                <Th color={"blue.700"} w={40}>
+                  닉네임
+                </Th>
+                <Th color={"blue.700"}>가입일시</Th>
               </Tr>
-            ))}
-          </Tbody>
-        </Table>
+            </Thead>
+            <Tbody>
+              {memberList.map((member) => (
+                <Tr
+                  cursor={"pointer"}
+                  _hover={{ bgColor: "blue.100" }}
+                  onClick={() => navigate(`/member/${member.id}`)}
+                  key={member.id}
+                >
+                  <Td>{member.id}</Td>
+                  <Td>{member.email}</Td>
+                  <Td>{member.nickName}</Td>
+                  <Td>{member.signupDateAndTime}</Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </Box>
       </Box>
-    </Box>
+    </Center>
   );
 }
