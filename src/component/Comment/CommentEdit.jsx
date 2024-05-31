@@ -8,6 +8,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Stack,
   Textarea,
   useDisclosure,
   useToast,
@@ -49,14 +50,14 @@ export function CommentEdit({
   }
 
   return (
-    <Flex>
+    <Flex gap={2}>
       <Box flex={1}>
         <Textarea
           value={commentText}
           onChange={(e) => setCommentText(e.target.value)}
         />
       </Box>
-      <Box>
+      <Stack>
         <Button
           variant="outline"
           colorScheme={"gray"}
@@ -66,13 +67,13 @@ export function CommentEdit({
         </Button>
         <Button
           onClick={onOpen}
-          variant="outline"
           colorScheme={"blue"}
           isLoading={isProcessing}
+          variant={"outline"}
         >
           <FontAwesomeIcon icon={faPaperPlane} />
         </Button>
-      </Box>
+      </Stack>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

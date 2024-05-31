@@ -9,11 +9,13 @@ import {
   ModalHeader,
   ModalOverlay,
   Spacer,
+  Stack,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarDays, faUser } from "@fortawesome/free-regular-svg-icons";
 import axios from "axios";
 import { useContext, useState } from "react";
 import { LoginContext } from "../LoginProvider.jsx";
@@ -46,29 +48,49 @@ export function CommentItem({ comment, isProcessing, setIsProcessing }) {
   }
 
   return (
-    <Box border={"1px solid black"} my={3}>
+    <Box>
       <Flex>
-        <Box>{comment.nickName}</Box>
+        <Flex fontWeight={"bold"} gap={2}>
+          <Box>
+            <FontAwesomeIcon icon={faUser} />
+          </Box>
+          <Box>{comment.nickName}</Box>
+        </Flex>
         <Spacer />
-        <Box>{comment.inserted}</Box>
+        <Flex gap={2}>
+          <Box>
+            <FontAwesomeIcon icon={faCalendarDays} />
+          </Box>
+          <Box>{comment.inserted}</Box>
+        </Flex>
       </Flex>
       {isEditing || (
         <Flex>
-          <Box>{comment.comment}</Box>
+          <Box whiteSpace={"pre"}>{comment.comment}</Box>
           <Spacer />
           {account.hasAccess(comment.memberId) && (
-            <Box>
-              <Button onClick={() => setIsEditing(true)} colorScheme={"yellow"}>
-                <FontAwesomeIcon icon={faPenToSquare} />
-              </Button>
-              <Button
-                onClick={onOpen}
-                colorScheme={"orange"}
-                isLoading={isProcessing}
-              >
-                <FontAwesomeIcon icon={faTrashCan} />
-              </Button>
-            </Box>
+            <Stack>
+              <Box>
+                <Button
+                  onClick={() => setIsEditing(true)}
+                  color={"blue.700"}
+                  colorScheme={"yellow"}
+                  variant={"outline"}
+                >
+                  <FontAwesomeIcon icon={faPenToSquare} />
+                </Button>
+              </Box>
+              <Box>
+                <Button
+                  onClick={onOpen}
+                  colorScheme={"orange"}
+                  isLoading={isProcessing}
+                  variant={"outline"}
+                >
+                  <FontAwesomeIcon icon={faTrashCan} />
+                </Button>
+              </Box>
+            </Stack>
           )}
         </Flex>
       )}
