@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Box, Flex, Spacer } from "@chakra-ui/react";
+import { Center, Flex, Spacer } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { LoginContext } from "./LoginProvider.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,70 +12,90 @@ export function Navbar() {
   return (
     <Flex
       gap={3}
+      px={{ lg: 150, md: 100, base: 25 }}
       mb={6}
-      h={10}
-      bgColor="gray.500"
+      h={24}
+      bgColor="gray.300"
       justifyContent="space-evenly"
-      fontSize={"large"}
-      fontWeight={"bold"}
-      alignItems="center"
-      color={"white"}
+      color={"blue.700"}
     >
-      <Box
+      <Center
+        p={6}
+        fontSize={"large"}
+        fontWeight={"bold"}
         onClick={() => navigate("/")}
         cursor={"pointer"}
-        _hover={{ bgColor: "blue.100" }}
+        _hover={{ bgColor: "gray.200" }}
       >
-        HOME
-      </Box>
-      {account.isLoggedIn() && (
-        <Box
-          onClick={() => navigate("/write")}
-          cursor={"pointer"}
-          _hover={{ bgColor: "blue.100" }}
-        >
-          글쓰기
-        </Box>
-      )}
+        React HOME
+      </Center>
       <Spacer />
       {account.isLoggedIn() && (
-        <Box
+        <Center
+          p={6}
+          fontSize={"large"}
+          fontWeight={"bold"}
+          onClick={() => navigate("/write")}
+          cursor={"pointer"}
+          _hover={{ bgColor: "gray.200" }}
+        >
+          글쓰기
+        </Center>
+      )}
+
+      {account.isLoggedIn() && (
+        <Center
+          p={6}
+          fontSize={"large"}
+          fontWeight={"bold"}
           onClick={() => navigate(`/member/${account.id}`)}
           cursor={"pointer"}
-          _hover={{ bgColor: "blue.100" }}
+          _hover={{ bgColor: "gray.200" }}
         >
           <FontAwesomeIcon icon={faUser} /> {account.nickName}
-        </Box>
+        </Center>
       )}
       {account.isAdmin() && (
-        <Box
+        <Center
+          p={6}
+          fontSize={"large"}
+          fontWeight={"bold"}
           onClick={() => navigate("/member/list")}
           cursor={"pointer"}
-          _hover={{ bgColor: "blue.100" }}
+          _hover={{ bgColor: "gray.200" }}
         >
           회원목록
-        </Box>
+        </Center>
       )}
       {account.isLoggedIn() || (
-        <Box
+        <Center
+          p={6}
+          fontSize={"large"}
+          fontWeight={"bold"}
           onClick={() => navigate("/signup")}
           cursor={"pointer"}
-          _hover={{ bgColor: "blue.100" }}
+          _hover={{ bgColor: "gray.200" }}
         >
           회원가입
-        </Box>
+        </Center>
       )}
       {account.isLoggedIn() || (
-        <Box
+        <Center
+          p={6}
+          fontSize={"large"}
+          fontWeight={"bold"}
           onClick={() => navigate("/login")}
           cursor={"pointer"}
-          _hover={{ bgColor: "blue.100" }}
+          _hover={{ bgColor: "gray.200" }}
         >
           로그인
-        </Box>
+        </Center>
       )}
       {account.isLoggedIn() && (
-        <Box
+        <Center
+          p={6}
+          fontSize={"large"}
+          fontWeight={"bold"}
           onClick={() => {
             account.logout();
             navigate("/login");
@@ -86,7 +106,7 @@ export function Navbar() {
           }}
         >
           로그아웃
-        </Box>
+        </Center>
       )}
     </Flex>
   );
