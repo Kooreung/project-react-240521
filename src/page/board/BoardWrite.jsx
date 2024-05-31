@@ -81,7 +81,7 @@ export function BoardWrite() {
     <Center>
       <Box mb={10} w={{ base: 700, lg: 1000 }}>
         <Box fontWeight={"bold"} fontSize={"2xl"} mb={6} color={"blue.700"}>
-          글 작성 화면
+          새 글 작성
         </Box>
         <Box my={4}>
           <FormControl>
