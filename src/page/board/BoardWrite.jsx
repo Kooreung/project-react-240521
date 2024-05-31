@@ -1,10 +1,18 @@
 import {
   Box,
   Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Center,
   FormControl,
   FormHelperText,
   FormLabel,
+  Heading,
   Input,
+  Stack,
+  StackDivider,
+  Text,
   Textarea,
   useToast,
 } from "@chakra-ui/react";
@@ -62,65 +70,80 @@ export function BoardWrite() {
 
   const fileNameList = [];
   for (let i = 0; i < files.length; i++) {
-    fileNameList.push(<li>{files[i].name}</li>);
+    fileNameList.push(
+      <Box>
+        <Text fontSize={"mb"}>{files[i].name}</Text>
+      </Box>,
+    );
   }
 
   return (
-    <Box>
-      <Box>글 작성 화면</Box>
-      <br />
-      <Box>
-        <FormControl>
-          <FormLabel>제목</FormLabel>
-          <Input onChange={(e) => setTitle(e.target.value)} />
-        </FormControl>
+    <Center>
+      <Box mb={10} w={{ base: 700, lg: 1000 }}>
+        <Box fontWeight={"bold"} fontSize={"2xl"} mb={6} color={"blue.700"}>
+          글 작성 화면
+        </Box>
+        <Box my={4}>
+          <FormControl>
+            <FormLabel>제목</FormLabel>
+            <Input onChange={(e) => setTitle(e.target.value)} />
+          </FormControl>
+        </Box>
+        <Box my={4}>
+          <FormControl>
+            <FormLabel>본문</FormLabel>
+            <Textarea onChange={(e) => setContent(e.target.value)} />
+          </FormControl>
+        </Box>
+        <Box my={4}>
+          <FormControl>
+            <FormLabel>파일</FormLabel>
+            <Input
+              type={"file"}
+              accept={"image/*"}
+              multiple={true}
+              onChange={(e) => {
+                setFiles(e.target.files);
+              }}
+            />
+            <FormHelperText textAlign={"right"} color={"orange"}>
+              총 용량은 10MB, 한 파일은 3MB 를 초과할 수 없습니다.
+            </FormHelperText>
+          </FormControl>
+        </Box>
+        {fileNameList.length > 0 && (
+          <Box my={4}>
+            <Card>
+              <CardHeader>
+                <Heading size={"md"}>선택된 파일 목록</Heading>
+              </CardHeader>
+              <CardBody>
+                <Stack divider={<StackDivider />} spacing={4}>
+                  {fileNameList}
+                </Stack>
+              </CardBody>
+            </Card>
+          </Box>
+        )}
+
+        <Box my={4}>
+          <FormControl>
+            <FormLabel>작성자</FormLabel>
+            <Input value={account.nickName} readOnly disabled />
+          </FormControl>
+        </Box>
+        <Box>
+          <Button
+            isLoading={loading}
+            colorScheme={"blue"}
+            onClick={handleClickSave}
+            isDisabled={disableSaveButton}
+          >
+            저장
+          </Button>
+          <Button>취소</Button>
+        </Box>
       </Box>
-      <br />
-      <Box>
-        <FormControl>
-          <FormLabel>본문</FormLabel>
-          <Textarea onChange={(e) => setContent(e.target.value)} />
-        </FormControl>
-      </Box>
-      <br />
-      <Box>
-        <FormControl>
-          <FormLabel>파일</FormLabel>
-          <Input
-            type={"file"}
-            accept={"image/*"}
-            multiple={true}
-            onChange={(e) => {
-              setFiles(e.target.files);
-            }}
-          />
-          <FormHelperText>
-            총 용량은 10MB, 한 파일은 3MB 를 초과할 수 없습니다.
-          </FormHelperText>
-        </FormControl>
-      </Box>
-      <Box>
-        <ul>{fileNameList}</ul>
-      </Box>
-      <br />
-      <Box>
-        <FormControl>
-          <FormLabel>작성자</FormLabel>
-          <Input value={account.nickName} readOnly disabled />
-        </FormControl>
-      </Box>
-      <br />
-      <Box>
-        <Button
-          isLoading={loading}
-          colorScheme={"blue"}
-          onClick={handleClickSave}
-          isDisabled={disableSaveButton}
-        >
-          저장
-        </Button>
-        <Button>취소</Button>
-      </Box>
-    </Box>
+    </Center>
   );
 }
