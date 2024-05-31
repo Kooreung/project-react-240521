@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { Center, Flex, Spacer } from "@chakra-ui/react";
+import { Center, Flex, Hide, Show, Spacer, Text } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { LoginContext } from "./LoginProvider.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faHouse, faUser } from "@fortawesome/free-solid-svg-icons";
 
 export function Navbar() {
   const navigate = useNavigate();
@@ -27,7 +27,12 @@ export function Navbar() {
         cursor={"pointer"}
         _hover={{ bgColor: "gray.200" }}
       >
-        React HOME
+        <Show below={"lg"}>
+          <FontAwesomeIcon icon={faHouse} size={"2xl"} />
+        </Show>
+        <Hide below={"lg"}>
+          <Text>React HOME</Text>
+        </Hide>
       </Center>
       <Spacer />
       {account.isLoggedIn() && (

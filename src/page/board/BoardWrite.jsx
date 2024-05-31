@@ -5,6 +5,7 @@ import {
   CardBody,
   CardHeader,
   Center,
+  Flex,
   FormControl,
   FormHelperText,
   FormLabel,
@@ -80,9 +81,12 @@ export function BoardWrite() {
   return (
     <Center>
       <Box mb={10} w={{ base: 700, lg: 1000 }}>
-        <Box fontWeight={"bold"} fontSize={"2xl"} mb={6} color={"blue.700"}>
-          새 글 작성
-        </Box>
+        <Flex>
+          <Box fontWeight={"bold"} fontSize={"2xl"} mb={6} color={"blue.700"}>
+            새 글 작성
+          </Box>
+        </Flex>
+
         <Box my={4}>
           <FormControl>
             <FormLabel>제목</FormLabel>

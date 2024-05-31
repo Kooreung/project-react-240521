@@ -7,7 +7,6 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  Heading,
   Image,
   Input,
   Modal,
@@ -114,7 +113,9 @@ export function BoardView() {
     <Center>
       <Box mb={10} w={{ base: 700, lg: 1000 }}>
         <Flex>
-          <Heading>{board.id} 번 게시물</Heading>
+          <Box fontWeight={"bold"} fontSize={"2xl"} mb={6} color={"blue.700"}>
+            {board.id} 번 게시물
+          </Box>
           <Spacer />
           {isLikeProcessing || (
             <Flex color={"orange"}>
@@ -157,7 +158,7 @@ export function BoardView() {
           {board.fileList &&
             board.fileList.map((file) => (
               <Card m={2} key={file.name}>
-                <CardBody>
+                <CardBody bgColor={"gray.300"}>
                   <Image w={"100%"} src={file.src} />
                 </CardBody>
               </Card>
