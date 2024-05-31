@@ -70,20 +70,22 @@ export function BoardList() {
   }
 
   return (
-    <Box>
-      <Box fontWeight={"bold"}>게시물 목록</Box>
+    <Box mb={10}>
+      <Box fontWeight={"bold"} fontSize={"2xl"} mb={6} color={"blue.700"}>
+        게시물 목록
+      </Box>
       <Box>
         {boardList.length === 0 && <Center>조회 결과가 없습니다.</Center>}
         {boardList.length > 0 && (
           <Table>
             <Thead>
               <Tr>
-                <Th>#</Th>
+                <Th w={20}>#</Th>
                 <Th>TITLE</Th>
-                <Th>
+                <Th w={20}>
                   <FontAwesomeIcon icon={faHeart} />
                 </Th>
-                <Th>
+                <Th w={40}>
                   <FontAwesomeIcon icon={faUserPen} /> WRITER
                 </Th>
               </Tr>
@@ -120,7 +122,7 @@ export function BoardList() {
           </Table>
         )}
       </Box>
-      <Center>
+      <Center my={10}>
         <Flex>
           <Box>
             <Select

@@ -7,7 +7,7 @@ export function Home() {
   return (
     <Box>
       <Navbar />
-      <Box mx={{ base: 15, lg: 200 }} mt={12}>
+      <Box mx={{ base: 15, lg: 300 }} mt={12}>
         <Outlet />
       </Box>
     </Box>
