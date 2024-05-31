@@ -214,7 +214,9 @@ export function MemberEdit() {
               </FormControl>
             </ModalBody>
             <ModalFooter>
-              <Button onClick={handleClickSave}>수정</Button>
+              <Button onClick={handleClickSave} colorScheme={"blue"} mr={4}>
+                수정
+              </Button>
               <Button onClick={onClose}>취소</Button>
             </ModalFooter>
           </ModalContent>
