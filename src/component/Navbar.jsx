@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Center, Flex, Hide, Show, Spacer, Text } from "@chakra-ui/react";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { LoginContext } from "./LoginProvider.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +8,7 @@ import { faHouse, faUser } from "@fortawesome/free-solid-svg-icons";
 export function Navbar() {
   const navigate = useNavigate();
   const account = useContext(LoginContext);
+  const [onMouse, setOnMouse] = useState(false);
 
   return (
     <Flex
@@ -25,10 +26,15 @@ export function Navbar() {
         fontWeight={"bold"}
         onClick={() => navigate("/")}
         cursor={"pointer"}
-        _hover={{ bgColor: "gray.200" }}
+        onMouseEnter={() => setOnMouse(true)}
+        onMouseLeave={() => setOnMouse(false)}
       >
         <Show below={"lg"}>
-          <FontAwesomeIcon icon={faHouse} size={"2xl"} />
+          {onMouse ? (
+            <FontAwesomeIcon icon={faHouse} size={"xl"} beatFade={true} />
+          ) : (
+            <FontAwesomeIcon icon={faHouse} size={"xl"} />
+          )}
         </Show>
         <Hide below={"lg"}>
           <Text>React HOME</Text>
