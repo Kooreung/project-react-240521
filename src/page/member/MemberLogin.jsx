@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Center,
   FormControl,
   FormLabel,
   Input,
@@ -41,31 +42,38 @@ export function MemberLogin() {
   }
 
   return (
-    <Box>
-      <Box>로그인</Box>
-      <Box>
-        <Box>
-          <FormControl>
-            <FormLabel>이메일</FormLabel>
-            <Input onChange={(e) => setEmail(e.target.value)} type={"email"} />
-          </FormControl>
+    <Center>
+      <Box mb={10} w={500}>
+        <Box fontWeight={"bold"} fontSize={"2xl"} mb={6} color={"blue.700"}>
+          로그인
         </Box>
         <Box>
-          <FormControl>
-            <FormLabel>패스워드</FormLabel>
-            <Input
-              onChange={(e) => setPassword(e.target.value)}
-              type={"password"}
-            />
-          </FormControl>
-        </Box>
-        <Box>
-          <Button colorScheme={"blue"} onClick={handleLogin}>
-            로그인
-          </Button>
-          <Button>취소</Button>
+          <Box my={4}>
+            <FormControl>
+              <FormLabel>이메일</FormLabel>
+              <Input
+                onChange={(e) => setEmail(e.target.value)}
+                type={"email"}
+              />
+            </FormControl>
+          </Box>
+          <Box my={4}>
+            <FormControl>
+              <FormLabel>패스워드</FormLabel>
+              <Input
+                onChange={(e) => setPassword(e.target.value)}
+                type={"password"}
+              />
+            </FormControl>
+          </Box>
+          <Box mt={6}>
+            <Button colorScheme={"blue"} onClick={handleLogin}>
+              로그인
+            </Button>
+            <Button>취소</Button>
+          </Box>
         </Box>
       </Box>
-    </Box>
+    </Center>
   );
 }

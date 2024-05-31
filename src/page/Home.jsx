@@ -5,7 +5,7 @@ import { Navbar } from "../component/Navbar.jsx";
 
 export function Home() {
   return (
-    <Box>
+    <Box bgColor="gray.100">
       <Navbar />
       <Box mx={{ base: 15, lg: 300 }} mt={12}>
         <Outlet />

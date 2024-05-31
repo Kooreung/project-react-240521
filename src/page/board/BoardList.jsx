@@ -70,125 +70,127 @@ export function BoardList() {
   }
 
   return (
-    <Box mb={10}>
-      <Box fontWeight={"bold"} fontSize={"2xl"} mb={6} color={"blue.700"}>
-        게시물 목록
-      </Box>
-      <Box>
-        {boardList.length === 0 && <Center>조회 결과가 없습니다.</Center>}
-        {boardList.length > 0 && (
-          <Table>
-            <Thead>
-              <Tr>
-                <Th w={20}>#</Th>
-                <Th>TITLE</Th>
-                <Th w={20}>
-                  <FontAwesomeIcon icon={faHeart} />
-                </Th>
-                <Th w={40}>
-                  <FontAwesomeIcon icon={faUserPen} /> WRITER
-                </Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {boardList.map((board) => (
-                <Tr
-                  key={board.id}
-                  onClick={() => navigate(`/board/${board.id}`)}
-                  cursor={"pointer"}
-                  _hover={{ bgColor: "gray.50" }}
-                >
-                  <Td>{board.id}</Td>
-                  <Td>
-                    {board.title}
-                    {board.numberOfImages && (
-                      <Badge>
-                        <FontAwesomeIcon icon={faImage} />
-                        {board.numberOfImages}
-                      </Badge>
-                    )}
-                    {board.numberOfComments > 0 && (
-                      <Badge>
-                        <FontAwesomeIcon icon={faComments} />
-                        {board.numberOfComments}
-                      </Badge>
-                    )}
-                  </Td>
-                  <Td>{board.numberOfLike > 0 && board.numberOfLike}</Td>
-                  <Td>{board.writer}</Td>
+    <Center>
+      <Box mb={10} w={{ base: 700, lg: 1000 }}>
+        <Box fontWeight={"bold"} fontSize={"2xl"} mb={6} color={"blue.700"}>
+          게시물 목록
+        </Box>
+        <Box>
+          {boardList.length === 0 && <Center>조회 결과가 없습니다.</Center>}
+          {boardList.length > 0 && (
+            <Table>
+              <Thead>
+                <Tr borderY={"solid 2px gray"}>
+                  <Th w={20}>#</Th>
+                  <Th>TITLE</Th>
+                  <Th w={20}>
+                    <FontAwesomeIcon icon={faHeart} />
+                  </Th>
+                  <Th w={40}>
+                    <FontAwesomeIcon icon={faUserPen} /> WRITER
+                  </Th>
                 </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        )}
-      </Box>
-      <Center my={10}>
-        <Flex>
-          <Box>
-            <Select
-              value={searchType}
-              onChange={(e) => setSearchType(e.target.value)}
-            >
-              <option value="all">전체</option>
-              <option value="text">글</option>
-              <option value="nickName">작성자</option>
-            </Select>
-          </Box>
-          <Box>
-            <Input
-              value={searchKeyword}
-              onChange={(e) => setSearchKeyword(e.target.value)}
-              placeholder="검색어"
-            />
-          </Box>
-          <Box>
-            <Button onClick={handleSearchClick}>
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </Button>
-          </Box>
-        </Flex>
-      </Center>
-      <Box>
-        <Center>
-          {pageInfo.prevPageNumber && (
-            <>
-              <Button onClick={() => handlePageButtonClick(1)}>
-                <FontAwesomeIcon icon={faAnglesLeft} />
-              </Button>
-              <Button
-                onClick={() => handlePageButtonClick(pageInfo.prevPageNumber)}
-              >
-                <FontAwesomeIcon icon={faAngleLeft} />
-              </Button>
-            </>
+              </Thead>
+              <Tbody borderY={"solid 2px gray"}>
+                {boardList.map((board) => (
+                  <Tr
+                    key={board.id}
+                    onClick={() => navigate(`/board/${board.id}`)}
+                    cursor={"pointer"}
+                    _hover={{ bgColor: "gray.50" }}
+                  >
+                    <Td>{board.id}</Td>
+                    <Td>
+                      {board.title}
+                      {board.numberOfImages && (
+                        <Badge>
+                          <FontAwesomeIcon icon={faImage} />
+                          {board.numberOfImages}
+                        </Badge>
+                      )}
+                      {board.numberOfComments > 0 && (
+                        <Badge>
+                          <FontAwesomeIcon icon={faComments} />
+                          {board.numberOfComments}
+                        </Badge>
+                      )}
+                    </Td>
+                    <Td>{board.numberOfLike > 0 && board.numberOfLike}</Td>
+                    <Td>{board.writer}</Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
           )}
-          {pageNumbers.map((pageNumber) => (
-            <Button
-              onClick={() => handlePageButtonClick(pageNumber)}
-              key={pageNumber}
-              colorScheme={
-                pageNumber === pageInfo.currentPageNumber ? "blue" : "gray"
-              }
-            >
-              {pageNumber}
-            </Button>
-          ))}
-          {pageInfo.nextPageNumber && (
-            <>
-              <Button
-                onClick={() => handlePageButtonClick(pageInfo.nextPageNumber)}
+        </Box>
+        <Center my={10}>
+          <Flex>
+            <Box>
+              <Select
+                value={searchType}
+                onChange={(e) => setSearchType(e.target.value)}
               >
-                <FontAwesomeIcon icon={faAngleRight} />
+                <option value="all">전체</option>
+                <option value="text">글</option>
+                <option value="nickName">작성자</option>
+              </Select>
+            </Box>
+            <Box>
+              <Input
+                value={searchKeyword}
+                onChange={(e) => setSearchKeyword(e.target.value)}
+                placeholder="검색어"
+              />
+            </Box>
+            <Box>
+              <Button onClick={handleSearchClick}>
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
               </Button>
-              <Button
-                onClick={() => handlePageButtonClick(pageInfo.lastPageNumber)}
-              >
-                <FontAwesomeIcon icon={faAnglesRight} />
-              </Button>
-            </>
-          )}
+            </Box>
+          </Flex>
         </Center>
+        <Box>
+          <Center>
+            {pageInfo.prevPageNumber && (
+              <>
+                <Button onClick={() => handlePageButtonClick(1)}>
+                  <FontAwesomeIcon icon={faAnglesLeft} />
+                </Button>
+                <Button
+                  onClick={() => handlePageButtonClick(pageInfo.prevPageNumber)}
+                >
+                  <FontAwesomeIcon icon={faAngleLeft} />
+                </Button>
+              </>
+            )}
+            {pageNumbers.map((pageNumber) => (
+              <Button
+                onClick={() => handlePageButtonClick(pageNumber)}
+                key={pageNumber}
+                colorScheme={
+                  pageNumber === pageInfo.currentPageNumber ? "blue" : "gray"
+                }
+              >
+                {pageNumber}
+              </Button>
+            ))}
+            {pageInfo.nextPageNumber && (
+              <>
+                <Button
+                  onClick={() => handlePageButtonClick(pageInfo.nextPageNumber)}
+                >
+                  <FontAwesomeIcon icon={faAngleRight} />
+                </Button>
+                <Button
+                  onClick={() => handlePageButtonClick(pageInfo.lastPageNumber)}
+                >
+                  <FontAwesomeIcon icon={faAnglesRight} />
+                </Button>
+              </>
+            )}
+          </Center>
+        </Box>
       </Box>
-    </Box>
+    </Center>
   );
 }
